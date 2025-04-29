@@ -1,5 +1,14 @@
 # Programmer
 
+**This tool is no longer used, and has been replaced by a [new version of the tool](https://flash.daisy.audio). The project sources have been left in place as a demonstration, or starting point for rolling custom DFU programming sites.**
+
+**There will be no further development in this repo**.
+
+**The previous index.html has been renamed, and replaced with a simple redirect to the new tool.**
+
+---
+
+
 WebUSB programmer for Daisy (and other DFU-compatible chips/boards).
 
 Largely based on the webdfu page set up for STM32F103 boards made by devanlai:
