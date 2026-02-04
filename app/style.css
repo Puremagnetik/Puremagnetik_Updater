@@ -263,6 +263,10 @@ a:hover {
     line-height: 24px;
 }
 
+#status:empty {
+    display: none;
+}
+
 /* === PROGRESS BAR === */
 progress {
     width: 100%;
