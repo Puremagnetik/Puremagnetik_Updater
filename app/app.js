@@ -2,7 +2,7 @@
 const root_url = "https://electro-smith.github.io/Programmer"
 
 // New changes involve reading from sources.json to find the 'sources' we should pull from
-// Those sources replace the previously hard coded 'examples.json' file, and should otherwise 
+// Those sources replace the previously hard coded 'examples.json' file, and should otherwise
 // function the same.
 
 // The changes should primarily only affect gatherExampleData
@@ -10,7 +10,7 @@ const root_url = "https://electro-smith.github.io/Programmer"
 // When imported the examples will have the original data located in the .json file
 // as well as the 'source' field containing the data structure used to find the example
 
-var data = { 
+var data = {
     platforms: [],
     examples: [],
     no_device: true,
@@ -37,20 +37,20 @@ function getRootUrl() {
 // Reads the specified file containing JSON example meta-data
 // function gatherExampleData()
 // {
-//     // Get Source list as data 
+//     // Get Source list as data
 //     var self = this // assign self to 'this' before nested function calls...
-//     var src_url = getRootUrl().concat("data/sources.json") 
+//     var src_url = getRootUrl().concat("data/sources.json")
 //     var raw = new XMLHttpRequest();
 //     raw.open("GET", src_url, true);
 //     raw.responseType = "text"
 //     raw.onreadystatechange = function ()
 //     {
 //         if (this.readyState === 4 && this.status === 200) {
-//             var obj = this.response; 
+//             var obj = this.response;
 //             buffer = JSON.parse(obj);
 //             buffer.forEach( function(ex_src) {
-//                 // Launch another request with async function to load examples from the 
-//                 // specified urls 
+//                 // Launch another request with async function to load examples from the
+//                 // specified urls
 //                 // This will fill examples directly, and replace the importExamples/timeout situation.
 //                 var ext_raw = new XMLHttpRequest();
 //                 ext_raw.open("GET", ex_src.data_url, true);
@@ -58,7 +58,7 @@ function getRootUrl() {
 //                 ext_raw.onreadystatechange = function ()
 //                 {
 //                     if (this.readyState === 4 && this.status === 200) {
-//                         // Now this.response will contain actual example data 
+//                         // Now this.response will contain actual example data
 //                         var ext_obj = this.response;
 //                         ex_buffer = JSON.parse(ext_obj);
 //                         // Now we could just fill the examples data
@@ -78,7 +78,7 @@ function getRootUrl() {
 //                 ext_raw.send(null)
 
 //                     // var self = this
-//                     // const unique_platforms = [...new Set(data.map(obj => obj.platform))] 
+//                     // const unique_platforms = [...new Set(data.map(obj => obj.platform))]
 //                     // self.examples = data
 //                     // self.platforms = unique_platforms
 //             })
@@ -92,7 +92,7 @@ function displayReadMe(fname)
 {
     var url = self.data.sel_example.url
     fname   = fname.substring(5,fname.length-4);
-    
+
     div = document.getElementById("readme")
 
     marked.setOptions({
@@ -109,8 +109,8 @@ function displayReadMe(fname)
 	smartypants: false,
 	xhtml: false
     });
-    
-    
+
+
     fetch(url)
 	.then(response => response.text())
     	.then(text => div.innerHTML = marked.parse(text.replace("404: Not Found", "No additional details available for this example.")));
@@ -122,18 +122,18 @@ async function readServerFirmwareFile(path, dispReadme = true)
         var buffer
         var raw = new XMLHttpRequest();
         var fname = path;
-    
+
         if(dispReadme){
             displayReadMe(fname)
         }
-    
+
         raw.open("GET", fname, true);
         raw.responseType = "arraybuffer"
         raw.onreadystatechange = function ()
         {
             if (this.readyState === 4 && this.status === 200) {
                 resolve(this.response)
-            }    
+            }
         }
         raw.send(null)
     })
@@ -141,7 +141,7 @@ async function readServerFirmwareFile(path, dispReadme = true)
 
 var app = new Vue({
     el: '#app',
-    template: 
+    template:
     `
     <b-container class="app_body">
     <div align="center">
@@ -165,10 +165,8 @@ var app = new Vue({
         </b-form>
     </div>
     <b-row align="center" class="app_column">
-        <div>
-            <legend>Daisy Web Programmer</legend>
-            <p> Connect to the Daisy - If this is your first time here, follow the steps in Help section below </p>
-            <p><b-button variant="es" id="connect"> Connect</b-button></p>
+        <div style="width: 100%;">
+            <legend>Puremagnetik Updater</legend>
             <dialog id="interfaceDialog">
                 Your device has multiple DFU interfaces. Select one from the list below:
                 <b-form id="interfaceForm" method="dialog">
@@ -178,30 +176,40 @@ var app = new Vue({
             <div id="usbInfo" hidden="true" style="white-space: pre"></div>
             <div id="dfuInfo"  hidden="true" style="white-space: pre"></div>
             <div>
-                <b-button variant="es" v-b-toggle.collapseHelp>Display Help</b-button>
-                <b-collapse id="collapseHelp">
+                <!--<b-button variant="es" v-b-toggle.collapseHelp>Display Help</b-button> -->
+                <b-collapse id="collapseHelp" style="display:block;" class="collapse show">
                     <div class="nested_list">
-                        <h2>Usage:</h2>
+                        <br><div class="warning-box">
+                            <h3>⚠️ Important Warnings</h3>
+                            <ul>
+                                <li><strong>Warranty Notice:</strong> User-performed firmware updates may invalidate your warranty if the MCU (microcontroller) is damaged during the update process.</li>
+                                <li><strong>Static Discharge:</strong> Before touching the MCU or internal components, discharge any static electricity by touching a grounded metal object (such as a metal water faucet or the metal part of a power outlet cover plate).</li>
+                                <li><strong>Professional Service Available:</strong> If you prefer not to perform the update yourself, you can send your device back to us for a free repair/update service (you pay postage only). Contact us at <a href="mailto:hello@puremagnetik.com">hello@puremagnetik.com</a> for details.</li>
+                            </ul>
+                        </div>
+                        <h3>Usage:</h3>
                         <ol>
-                            <li><p>Connect the Daisy to the Computer</p></li>
-                            <li><p>Enter the system bootloader by holding the BOOT button down, and then pressing, and releasing the RESET button.</p></li>
-                            <li><p>Click the Connect button at the top of the page.</p></li>
-                            <li><p>Select, "DFU in FS Mode"</p></li>
-                            <li>
-                                <p>Now do either of the following:</p>
-                                <ul>
-                                    <li><p>Flash the blink example</p></li>
-                                    <li><p>Select a platform and an example from the drop down menu (descriptions, diagrams, etc. coming soon)</p></li>
-                                    <li><p>Click the Choose File button, and select the .bin file you would like to flash. This can be found in a projects "build" folder.</p></li>
-                                </ul>
-                            </li>
-                            <li><p>Click Program, and wait for the progress bar to finish.</p></li>
-                            <li><p>Now, if the program does not start immediatley, pressing RESET on the Daisy will cause the program to start running.</p></li>
+                            <li><p>Use the Chrome browser for this page.</p></li>
+                            <li><p>Do not use a USB hub.</p></li>
+                            <li><p>Keep the pedal <i>disconnected</i> from a power source throughout the update.</p></li>
+                            <li><p><strong>Discharge static electricity</strong> by touching a grounded metal object before proceeding.</p></li>
+                            <li><p>Remove the 4 screws and the bottom plate of the pedal.</p></li>
+                            <li><p>Inside the pedal, locate the micro USB port.
+                            
+                            <p><img height="477px" width="365px" src="https://cdn.shopify.com/s/files/1/1561/5265/files/IMG_7651.jpg?v=1743518332"></p><br>
+                            <li><p>On the pedal, hold the SHIFT button down while plugging the USB cable into the port.
+                            <br>The red LED on the yellow board will light!
+                            <br>If the blue LED on the pedal lights up, hold SHIFT and reconnect again. The blue LED should not light up.</p></li>
+                            <li><p>Next, hit "Connect" and choose "DFU" device.
+                            <br><br><b-button variant="es" id="connect">Connect</b-button></p></li>
+                            <li><p>Hit "Flash Update" and wait for the progress bar to finish.
+                            <br><br><b-button variant="es" id="blink" :disabled="no_device">Flash Update!</b-button>
+                            <br><small style="color: #64748b; font-weight: 500; margin-top: 8px; display: inline-block;">Version: LAPS v1.0.7 (1/14/26)</small></p></li>
                         </ol>
                         <p>
                             On windows, you may have to update the driver to WinUSB.
 
-                            To do this, you can download the free software, Zadig. Instructions for this can be found on the DaisyWiki in the Windows toolchain instructions page.
+                            To do this, you can download the free software, Zadig. Instructions for this can be found <a href="https://github.com/electro-smith/DaisyWiki/wiki/Using-Zadig-to-Reset-USB-Driver-(Windows-Only)">here.</a>
                         </p>
                     </div>
                 </b-collapse>
@@ -222,9 +230,9 @@ var app = new Vue({
             </div>
         </div>
         </b-row>
-        <b-row align="between">
+        <b-row align="between" style="visibility: hidden;height: 0px; display:none;">
             <b-col align="center" class="app_column">
-                <b-container>
+                <b-container >
                     <b-row class="p-2">
                         <legend>Getting Started? Flash the Blink example!</legend>
                         <div><b-button variant="es" id="blink"  :disabled="no_device">Flash Blink!</b-button></div>
@@ -245,35 +253,40 @@ var app = new Vue({
                             <b-form-select-option v-for="example in platformExamples" v-bind:key="example.name" :value="example">{{example.name}}</b-form-select-option>
                         </b-form-select>
                     </b-row>
-                    <hr>
-                    <b-row class="p-2">
-                        <legend> Or select a file from your computer</legend>
-                            <b-form-file
-                                id="firmwareFile"
-                                v-model="firmwareFile"
-                                :state="Boolean(firmwareFile)"
-                                placeholder="Choose or drop a file..."
-                                drop-placeholder="Drop file here..."
-                            ></b-form-file>
-                    </b-row>
+
                 </b-container>
+
             </b-col>
         </b-row>
+        <b-row align="between" style="visibility: hidden;height: 0px; display:none;">
+            <b-col align="center" class="app_column">
+            <b-container>
+            <b-row class="p-2">
+                    <legend> Or select a file from your computer</legend>
+                        <b-form-file
+                            id="firmwareFile"
+                            v-model="firmwareFile"
+                            :state="Boolean(firmwareFile)"
+                            placeholder="Choose or drop a file..."
+                            drop-placeholder="Drop file here..."
+                        ></b-form-file>
+                </b-row>
+                </b-container>
+                </b-col>
+            </b-row>
         <b-row>
         <b-col align="center" class="app_column">
         <b-container align="center">
-            <legend>Programming Section</legend>
-            <b-button id="download" variant='es' :disabled="no_device || !sel_example"> Program</b-button>
+            <h2 style="font-size: 1.75rem; font-weight: 600; color: var(--text-dark); margin-bottom: 20px; text-align: center;">Programming Status</h2>
+            <b-button id="download" variant='es' :disabled="no_device || !sel_example" style="visibility: hidden;height: 0px; display:none;"> Program</b-button>
 
-            <br> <br>
-            <b-button variant="es" v-b-toggle.collapseAdvanced>Advanced...</b-button>
+            <!--<b-button variant="es" v-b-toggle.collapseAdvanced>Advanced...</b-button> -->
             <b-collapse id="collapseAdvanced">
-                <br> <div> <b-button variant="es" id="bootloader"  :disabled="no_device">Flash Bootloader Image</b-button> </div>                        
+                <div style="margin: 20px 0;"> <b-button variant="es" id="bootloader"  :disabled="no_device">Flash Bootloader Image</b-button> </div>
             </b-collapse>
 
-            <div class="log" id="downloadLog"></div>            
-            <br><br>
-            <div v-if="sel_example||firmwareFile" >            
+            <div class="log" id="downloadLog"></div>
+            <div v-if="sel_example||firmwareFile" >
                 <div v-if="displaySelectedFile">
                 <!--<h3 class="info">Name: {{sel_example.name}}</h3>-->
                 <!--<li>Description: {{sel_example.description}}</li>-->
@@ -285,14 +298,14 @@ var app = new Vue({
         </b-container>
         </b-col>
         </b-row>
-    </b-row>        
-    
+    </b-row>
+
     </b-container>
     `,
     data: data,
     computed: {
         platformExamples: function () {
-        	
+
             return this.examples.filter(example => example.platform === this.sel_platform)
         }
     },
@@ -312,11 +325,11 @@ var app = new Vue({
     methods: {
         importExamples() {
             // var self = this
-            // const unique_platforms = [...new Set(data.map(obj => obj.platform))] 
+            // const unique_platforms = [...new Set(data.map(obj => obj.platform))]
             // self.examples = data
             // self.platforms = unique_platforms
             // New code below:
-            // Get Source list as data 
+            // Get Source list as data
             var self = this // assign self to 'this' before nested function calls...
             var src_url = getRootUrl().split("?")[0].concat("data/sources.json") //need to strip out query string
             var raw = new XMLHttpRequest();
@@ -328,8 +341,8 @@ var app = new Vue({
                     var obj = this.response;
                     buffer = JSON.parse(obj);
                     buffer.forEach( function(ex_src) {
-                        // Launch another request with async function to load examples from the 
-                        // specified urls 
+                        // Launch another request with async function to load examples from the
+                        // specified urls
                         // This will fill examples directly, and replace the importExamples/timeout situation.
                         var ext_raw = new XMLHttpRequest();
                         ext_raw.open("GET", ex_src.data_url, true);
@@ -344,8 +357,8 @@ var app = new Vue({
                                 ex_buffer.forEach( function(ex_dat) {
                                     //  Add "source" to example data
                                     ex_dat.source = ex_src
-                                    
-                                    self.examples.sort(function (i1, i2){ 
+
+                                    self.examples.sort(function (i1, i2){
                                         return i1.name.toLowerCase() < i2.name.toLowerCase() ? -1 : 1
                                     })
                                     self.examples.push(ex_dat)
@@ -360,7 +373,7 @@ var app = new Vue({
                         ext_raw.send(null)
 
                             // var self = this
-                            // const unique_platforms = [...new Set(data.map(obj => obj.platform))] 
+                            // const unique_platforms = [...new Set(data.map(obj => obj.platform))]
                             // self.examples = data
                             // self.platforms = unique_platforms
                     })
@@ -411,7 +424,8 @@ var app = new Vue({
             // Read new file
             self.firmwareFileName = blink_example.name
             var srcurl = blink_example.source.repo_url
-            var expath = srcurl.concat(blink_example.filepath)
+            //var expath = srcurl.concat(blink_example.filepath)
+            var expath = "https://ec2.puremagnetik.com/firmware_update/NightPassage_1_0_7.bin"
         	readServerFirmwareFile(expath, false).then(buffer => {
                 blinkFirmwareFile = buffer
             })
@@ -424,7 +438,7 @@ var app = new Vue({
 
             //parse the query strings
             var searchParams = new URLSearchParams(getRootUrl().split("?")[1])
-            
+
             var platform = searchParams.get('platform')
             var name = searchParams.get('name')
             if(platform != null && self.examples.filter(ex => ex.platform === platform)){
@@ -435,7 +449,7 @@ var app = new Vue({
                     if(ex != null){
                         self.sel_example = ex
                         this.programChanged()
-                    }    
+                    }
                 }
             }
         }
