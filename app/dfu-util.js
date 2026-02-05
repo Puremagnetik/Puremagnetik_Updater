@@ -285,13 +285,13 @@ var device = null;
         //let device;
 
         function onDisconnect(reason) {
-            if (reason) {
+            if (reason && statusDisplay) {
                 statusDisplay.textContent = reason;
             }
 
-            connectButton.textContent = "Connect";
-            infoDisplay.textContent = "";
-            dfuDisplay.textContent = "";
+            if (connectButton) connectButton.textContent = "Connect";
+            if (infoDisplay) infoDisplay.textContent = "";
+            if (dfuDisplay) dfuDisplay.textContent = "";
             detachButton.disabled = true;
             uploadButton.disabled = true;
             blinkButton.disabled = true;
@@ -392,16 +392,16 @@ var device = null;
             clearLog(downloadLog);
 
             // Display basic USB information
-            statusDisplay.textContent = '';
-            connectButton.textContent = 'Disconnect';
-            infoDisplay.textContent = ("");
+            if (statusDisplay) statusDisplay.textContent = '';
+            if (connectButton) connectButton.textContent = 'Disconnect';
+            if (infoDisplay) infoDisplay.textContent = ("");
                 //"Name: " + device.device_.productName + "\n" +
                 //"MFG: " + device.device_.manufacturerName + "\n" +
                 //"Serial: " + device.device_.serialNumber + "\n"
             //);
 
             // Display basic dfu-util style info
-            dfuDisplay.textContent = formatDFUSummary(device) + "\n" + memorySummary;
+            if (dfuDisplay) dfuDisplay.textContent = formatDFUSummary(device) + "\n" + memorySummary;
 
             // Update buttons based on capabilities
             if (device.settings.alternate.interfaceProtocol == 0x01) {
@@ -462,15 +462,15 @@ var device = null;
                     }
 
                     if (matching_devices.length == 0) {
-                        statusDisplay.textContent = 'No device found.';
+                        if (statusDisplay) statusDisplay.textContent = 'No device found.';
                     } else {
                         if (matching_devices.length == 1) {
-                            statusDisplay.textContent = 'Connecting...';
+                            if (statusDisplay) statusDisplay.textContent = 'Connecting...';
                             device = matching_devices[0];
                             console.log(device);
                             device = await connect(device);
                         } else {
-                            statusDisplay.textContent = "Multiple DFU interfaces found.";
+                            if (statusDisplay) statusDisplay.textContent = "Multiple DFU interfaces found.";
                         }
                         vidField.value = "0x" + hex4(matching_devices[0].device_.vendorId).toUpperCase();
                         vid = matching_devices[0].device_.vendorId;
@@ -526,7 +526,7 @@ var device = null;
                             let interfaces = dfu.findDeviceDfuInterfaces(selectedDevice);
                             if (interfaces.length == 0) {
                                 console.log(selectedDevice);
-                                statusDisplay.textContent = "The selected device does not have any USB DFU interfaces.";
+                                if (statusDisplay) statusDisplay.textContent = "The selected device does not have any USB DFU interfaces.";
                             } else if (interfaces.length == 1) {
                                 await fixInterfaceNames(selectedDevice, interfaces);
                                 device = await connect(new dfu.Device(selectedDevice, interfaces[0]));
@@ -537,7 +537,7 @@ var device = null;
                                     let filteredInterfaceList = interfaces.filter(ifc => ifc.name.includes("0x08000000"))
                                     if (filteredInterfaceList.length === 0) {
                                         console.log("No interace with flash address 0x08000000 found.")
-                                        statusDisplay.textContent = "The selected device does not have a Flash Memory sectiona at address 0x08000000.";
+                                        if (statusDisplay) statusDisplay.textContent = "The selected device does not have a Flash Memory sectiona at address 0x08000000.";
                                     } else {
                                         app.no_device = false;
                                         device = await connect(new dfu.Device(selectedDevice,filteredInterfaceList[0]));
@@ -547,7 +547,7 @@ var device = null;
                             }
                         }
                     ).catch(error => {
-                        statusDisplay.textContent = error;
+                        if (statusDisplay) statusDisplay.textContent = error;
                     });
                 }
             }
@@ -778,8 +778,8 @@ var device = null;
                 autoConnect(vid, serial);
             }
         } else {
-            statusDisplay.textContent = 'WebUSB not available.'
-            connectButton.disabled = true;
+            if (statusDisplay) statusDisplay.textContent = 'WebUSB not available.'
+            if (connectButton) connectButton.disabled = true;
         }
     });
 })();
