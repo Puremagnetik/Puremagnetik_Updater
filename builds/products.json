@@ -47,7 +47,7 @@
             "text": "Hold Footswitch while connecting a micro USB cable to enter firmware loading mode"
           },
           {
-            "text": "The LED will reamin unlit until the firmware update has completed"
+            "text": "The LED will remain unlit until the firmware update has completed"
           },
           {
             "type": "connect_button",
