@@ -162,6 +162,35 @@ a:hover {
     opacity: 0.5;
 }
 
+/* === CHANGELOG BOX === */
+.changelog-box {
+    background: #f0f9ff;
+    border: 2px solid var(--accent);
+    border-radius: var(--radius-md);
+    padding: 24px;
+    margin: 24px 0;
+}
+
+.changelog-box h3 {
+    color: var(--accent);
+    margin-top: 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 1.1rem;
+}
+
+.changelog-box ul {
+    color: var(--text-primary);
+    margin-left: 20px;
+    margin-bottom: 12px;
+}
+
+.changelog-box small {
+    display: block;
+    margin-top: 8px;
+}
+
 /* === WARNING BOX === */
 .warning-box {
     background: #fffbf0;

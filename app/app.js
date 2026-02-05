@@ -144,6 +144,9 @@ var app = new Vue({
                             <h3 class="product-name">{{product.name}}</h3>
                             <p class="product-description">{{product.description}}</p>
                             <p class="product-version">v{{product.firmware.version}}</p>
+                            <div v-if="product.changelog && product.changelog.length > 0" class="product-changelog-preview">
+                                <small style="color: #64748b;">Latest: {{product.changelog[0].changes[0]}}</small>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -153,6 +156,13 @@ var app = new Vue({
                 <!--<b-button variant="es" v-b-toggle.collapseHelp>Display Help</b-button> -->
                 <b-collapse id="collapseHelp" style="display:block;" class="collapse show">
                     <div class="nested_list">
+                        <br><div v-if="selectedProduct && selectedProduct.changelog && selectedProduct.changelog.length > 0" class="changelog-box">
+                            <h3>What's New in v{{selectedProduct.firmware.version}}</h3>
+                            <ul>
+                                <li v-for="change in selectedProduct.changelog[0].changes" :key="change" v-html="change"></li>
+                            </ul>
+                            <small style="color: #64748b;">Released: {{selectedProduct.changelog[0].date}}</small>
+                        </div>
                         <br><div v-if="selectedProduct && selectedProduct.instructions && selectedProduct.instructions.info_section" class="warning-box">
                             <h3>{{selectedProduct.instructions.info_section.title}}</h3>
                             <ul>

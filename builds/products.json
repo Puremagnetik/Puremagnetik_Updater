@@ -10,19 +10,21 @@
       "image": "builds/jots/jots_flat.jpg",
       "platform": "seed",
       "firmware": {
-        "version": "1.0.1",
+        "version": "1.0.12",
         "release_date": "2026-02-05",
         "filename": "jots_1_0_1.bin",
-        "url": "builds/jots/jots_1_0_1.bin",
+        "url": "builds/jots/jots_1_0_12.bin",
         "size_bytes": null,
         "checksum_sha256": null
       },
       "changelog": [
         {
-          "version": "1.0.1",
+          "version": "1.0.12",
           "date": "2026-02-05",
           "changes": [
-            "Latest stable release"
+            "Latest Release Candidate",
+            "Added fade out on first record",
+            "Added fade between buffer swaps while overdubbing"
           ]
         }
       ],
@@ -79,7 +81,7 @@
           "version": "1.0.7",
           "date": "2026-01-14",
           "changes": [
-            "Latest stable release"
+            "Updated gain staging in Multiply mode"
           ]
         }
       ],
