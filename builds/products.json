@@ -45,6 +45,9 @@
             "text": "Hold Footswitch while connecting a micro USB cable to enter firmware loading mode"
           },
           {
+            "text": "The LED will reamin unlit until the firmware update has completed"
+          },
+          {
             "type": "connect_button",
             "text": "Next, hit \"Connect\" and choose \"DFU\" device."
           },

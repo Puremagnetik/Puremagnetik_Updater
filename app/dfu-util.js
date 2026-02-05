@@ -505,45 +505,52 @@ var device = null;
         //     }
         // });
 
-        connectButton.addEventListener('click', function() {
-            if (device) {
-                device.close().then(onDisconnect);
-                device = null;
-            } else {
-                let filters = [];
-                if (serial) {
-                    filters.push({ 'serialNumber': serial });
-                } else if (vid) {
-                    filters.push({ 'vendorId': vid });
-                }
-                navigator.usb.requestDevice({ 'filters': filters }).then(
-                    async selectedDevice => {
-                        let interfaces = dfu.findDeviceDfuInterfaces(selectedDevice);
-                        if (interfaces.length == 0) {
-                            console.log(selectedDevice);
-                            statusDisplay.textContent = "The selected device does not have any USB DFU interfaces.";
-                        } else if (interfaces.length == 1) {
-                            await fixInterfaceNames(selectedDevice, interfaces);
-                            device = await connect(new dfu.Device(selectedDevice, interfaces[0]));
-                            app.no_device = false;
-                        } else {
-                            await fixInterfaceNames(selectedDevice, interfaces);
-                            async function connectToSelectedInterface() {
-                                let filteredInterfaceList = interfaces.filter(ifc => ifc.name.includes("0x08000000"))
-                                if (filteredInterfaceList.length === 0) {
-                                    console.log("No interace with flash address 0x08000000 found.")
-                                    statusDisplay.textContent = "The selected device does not have a Flash Memory sectiona at address 0x08000000.";
-                                } else {
-                                    app.no_device = false;
-                                    device = await connect(new dfu.Device(selectedDevice,filteredInterfaceList[0]));
-                                }
-                            }
-                            await connectToSelectedInterface();
-                        }
+        // Use event delegation for dynamically rendered buttons
+        document.addEventListener('click', function(e) {
+            // Check if the clicked element is the connect button
+            if (e.target && e.target.id === 'connect') {
+                let connectButton = e.target;
+                let statusDisplay = document.querySelector("#status");
+
+                if (device) {
+                    device.close().then(onDisconnect);
+                    device = null;
+                } else {
+                    let filters = [];
+                    if (serial) {
+                        filters.push({ 'serialNumber': serial });
+                    } else if (vid) {
+                        filters.push({ 'vendorId': vid });
                     }
-                ).catch(error => {
-                    statusDisplay.textContent = error;
-                });
+                    navigator.usb.requestDevice({ 'filters': filters }).then(
+                        async selectedDevice => {
+                            let interfaces = dfu.findDeviceDfuInterfaces(selectedDevice);
+                            if (interfaces.length == 0) {
+                                console.log(selectedDevice);
+                                statusDisplay.textContent = "The selected device does not have any USB DFU interfaces.";
+                            } else if (interfaces.length == 1) {
+                                await fixInterfaceNames(selectedDevice, interfaces);
+                                device = await connect(new dfu.Device(selectedDevice, interfaces[0]));
+                                app.no_device = false;
+                            } else {
+                                await fixInterfaceNames(selectedDevice, interfaces);
+                                async function connectToSelectedInterface() {
+                                    let filteredInterfaceList = interfaces.filter(ifc => ifc.name.includes("0x08000000"))
+                                    if (filteredInterfaceList.length === 0) {
+                                        console.log("No interace with flash address 0x08000000 found.")
+                                        statusDisplay.textContent = "The selected device does not have a Flash Memory sectiona at address 0x08000000.";
+                                    } else {
+                                        app.no_device = false;
+                                        device = await connect(new dfu.Device(selectedDevice,filteredInterfaceList[0]));
+                                    }
+                                }
+                                await connectToSelectedInterface();
+                            }
+                        }
+                    ).catch(error => {
+                        statusDisplay.textContent = error;
+                    });
+                }
             }
         });
 
@@ -617,92 +624,104 @@ var device = null;
         //     return false;
         // });
 	
-        bootloaderButton.addEventListener('click', async function(event) {
-            event.preventDefault();
-            event.stopPropagation();
-            if (!configForm.checkValidity()) {
-                configForm.reportValidity();
-                return false;
-            }
+        // Use event delegation for bootloader button
+        document.addEventListener('click', async function(e) {
+            if (e.target && e.target.id === 'bootloader') {
+                e.preventDefault();
+                e.stopPropagation();
+                let configForm = document.querySelector("#configForm");
+                let downloadLog = document.querySelector("#downloadLog");
 
-            if (device && bootloaderFirmwareFile != null) {
-                setLogContext(downloadLog);
-                clearLog(downloadLog);
-                try {
-                    let status = await device.getStatus();
-                    if (status.state == dfu.dfuERROR) {
-                        await device.clearStatus();
-                    }
-                } catch (error) {
-                    device.logWarning("Failed to clear status");
+                if (!configForm.checkValidity()) {
+                    configForm.reportValidity();
+                    return false;
                 }
-                await device.do_download(transferSize, bootloaderFirmwareFile, manifestationTolerant).then(
-                    () => {
-                        logInfo("Done!");
-                        setLogContext(null);
-                        if (!manifestationTolerant) {
-                            device.waitDisconnected(5000).then(
-                                dev => {
-                                    onDisconnect();
-                                    device = null;
-                                },
-                                error => {
-                                    // It didn't reset and disconnect for some reason...
-                                    console.log("Device unexpectedly tolerated manifestation.");
-                                }
-                            );
+
+                if (device && bootloaderFirmwareFile != null) {
+                    setLogContext(downloadLog);
+                    clearLog(downloadLog);
+                    try {
+                        let status = await device.getStatus();
+                        if (status.state == dfu.dfuERROR) {
+                            await device.clearStatus();
                         }
-                    },
-                    error => {
-                        logError(error);
-                        setLogContext(null);
+                    } catch (error) {
+                        device.logWarning("Failed to clear status");
                     }
-                )
-            }            
+                    await device.do_download(transferSize, bootloaderFirmwareFile, manifestationTolerant).then(
+                        () => {
+                            logInfo("Done!");
+                            setLogContext(null);
+                            if (!manifestationTolerant) {
+                                device.waitDisconnected(5000).then(
+                                    dev => {
+                                        onDisconnect();
+                                        device = null;
+                                    },
+                                    error => {
+                                        // It didn't reset and disconnect for some reason...
+                                        console.log("Device unexpectedly tolerated manifestation.");
+                                    }
+                                );
+                            }
+                        },
+                        error => {
+                            logError(error);
+                            setLogContext(null);
+                        }
+                    )
+                }
+            }
         });
 
-        blinkButton.addEventListener('click', async function(event) {
-            event.preventDefault();
-            event.stopPropagation();
-            if (!configForm.checkValidity()) {
-                configForm.reportValidity();
-                return false;
-            }
+        // Use event delegation for blink button
+        document.addEventListener('click', async function(e) {
+            if (e.target && e.target.id === 'blink') {
+                e.preventDefault();
+                e.stopPropagation();
+                let configForm = document.querySelector("#configForm");
+                let downloadLog = document.querySelector("#downloadLog");
 
-            if (device && blinkFirmwareFile != null) {
-                setLogContext(downloadLog);
-                clearLog(downloadLog);
-                try {
-                    let status = await device.getStatus();
-                    if (status.state == dfu.dfuERROR) {
-                        await device.clearStatus();
-                    }
-                } catch (error) {
-                    device.logWarning("Failed to clear status");
+                if (!configForm.checkValidity()) {
+                    configForm.reportValidity();
+                    return false;
                 }
-                await device.do_download(transferSize, blinkFirmwareFile, manifestationTolerant).then(
-                    () => {
-                        logInfo("Done!");
-                        setLogContext(null);
-                        if (!manifestationTolerant) {
-                            device.waitDisconnected(5000).then(
-                                dev => {
-                                    onDisconnect();
-                                    device = null;
-                                },
-                                error => {
-                                    // It didn't reset and disconnect for some reason...
-                                    console.log("Device unexpectedly tolerated manifestation.");
-                                }
-                            );
+
+                if (device && blinkFirmwareFile != null) {
+                    setLogContext(downloadLog);
+                    clearLog(downloadLog);
+                    try {
+                        let status = await device.getStatus();
+                        if (status.state == dfu.dfuERROR) {
+                            await device.clearStatus();
                         }
-                    },
-                    error => {
-                        logError(error);
-                        setLogContext(null);
+                    } catch (error) {
+                        device.logWarning("Failed to clear status");
                     }
-                )
-            }            
+                    await device.do_download(transferSize, blinkFirmwareFile, manifestationTolerant).then(
+                        () => {
+                            logInfo("Done!");
+                            setLogContext(null);
+                            if (!manifestationTolerant) {
+                                device.waitDisconnected(5000).then(
+                                    dev => {
+                                        onDisconnect();
+                                        device = null;
+                                    },
+                                    error => {
+                                        // It didn't reset and disconnect for some reason...
+                                        console.log("Device unexpectedly tolerated manifestation.");
+                                    }
+                                );
+                            }
+                        },
+                        error => {
+                            logError(error);
+                            setLogContext(null);
+                        }
+                    )
+                }
+            }
         });
 
 
