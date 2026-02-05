@@ -11,16 +11,19 @@ const root_url = "https://electro-smith.github.io/Programmer"
 // as well as the 'source' field containing the data structure used to find the example
 
 var data = {
-    platforms: [],
-    examples: [],
+    products: [],              // NEW: Product array from products.json
+    selectedProduct: null,     // NEW: Currently selected product
     no_device: true,
-    sel_platform: null,
-    sel_example: null,
     firmwareFile: null,
     blinkFirmwareFile: null,
     bootloaderFirmwareFile: null,
     displayImportedFile: false,
-    displaySelectedFile: false
+    displaySelectedFile: false,
+    // Legacy fields (may be removed later)
+    platforms: [],
+    examples: [],
+    sel_platform: null,
+    sel_example: null
 }
 
 // Global Buffer for reading files
@@ -175,6 +178,29 @@ var app = new Vue({
             </dialog>
             <div id="usbInfo" hidden="true" style="white-space: pre"></div>
             <div id="dfuInfo"  hidden="true" style="white-space: pre"></div>
+
+            <!-- Product Selector -->
+            <div class="product-selector-section">
+                <h2 style="font-size: 1.5rem; font-weight: 600; color: var(--text-dark); margin-bottom: 20px; text-align: center;">Select Your Product</h2>
+                <div class="product-grid">
+                    <div
+                        v-for="product in products"
+                        :key="product.id"
+                        @click="productSelected(product)"
+                        :class="['product-card', { 'product-card-selected': selectedProduct && selectedProduct.id === product.id }]"
+                    >
+                        <div class="product-image-container">
+                            <img :src="product.image" :alt="product.name" class="product-image">
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-name">{{product.name}}</h3>
+                            <p class="product-description">{{product.description}}</p>
+                            <p class="product-version">v{{product.firmware.version}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div>
                 <!--<b-button variant="es" v-b-toggle.collapseHelp>Display Help</b-button> -->
                 <b-collapse id="collapseHelp" style="display:block;" class="collapse show">
@@ -195,16 +221,17 @@ var app = new Vue({
                             <li><p><strong>Discharge static electricity</strong> by touching a grounded metal object before proceeding.</p></li>
                             <li><p>Remove the 4 screws and the bottom plate of the pedal.</p></li>
                             <li><p>Inside the pedal, locate the micro USB port.
-                            
+
                             <p><img height="477px" width="365px" src="https://cdn.shopify.com/s/files/1/1561/5265/files/IMG_7651.jpg?v=1743518332"></p><br>
-                            <li><p>On the pedal, hold the SHIFT button down while plugging the USB cable into the port.
+                            <li v-if="selectedProduct"><p>{{selectedProduct.installation_notes}}</p></li>
+                            <li v-else><p>On the pedal, hold the appropriate button down while plugging the USB cable into the port.
                             <br>The red LED on the yellow board will light!
-                            <br>If the blue LED on the pedal lights up, hold SHIFT and reconnect again. The blue LED should not light up.</p></li>
+                            <br>If the blue LED on the pedal lights up, reconnect again with the button held. The blue LED should not light up.</p></li>
                             <li><p>Next, hit "Connect" and choose "DFU" device.
                             <br><br><b-button variant="es" id="connect">Connect</b-button></p></li>
                             <li><p>Hit "Flash Update" and wait for the progress bar to finish.
                             <br><br><b-button variant="es" id="blink" :disabled="no_device">Flash Update!</b-button>
-                            <br><small style="color: #64748b; font-weight: 500; margin-top: 8px; display: inline-block;">Version: LAPS v1.0.7 (1/14/26)</small></p></li>
+                            <br><small v-if="selectedProduct" style="color: #64748b; font-weight: 500; margin-top: 8px; display: inline-block;">Version: {{selectedProduct.name}} v{{selectedProduct.firmware.version}} ({{selectedProduct.firmware.release_date}})</small></p></li>
                         </ol>
                         <p>
                             On windows, you may have to update the driver to WinUSB.
@@ -315,14 +342,50 @@ var app = new Vue({
     mounted() {
         var self = this
         console.log("Mounted Page")
-        //var fpath = getRootUrl().concat("bin/examples.json");
-        //gatherExampleData()
-        // setTimeout(function(){
-        //     self.importExamples(buffer)
-        // }, 1000)
-        this.importExamples()
+        // Load products from builds/products.json
+        this.importProducts()
+        // Keep legacy importExamples() for backwards compatibility (if needed)
+        // this.importExamples()
     },
     methods: {
+        importProducts() {
+            var self = this
+            var base_url = getRootUrl().split("?")[0]
+            // Remove the filename (index.html) from the URL if present
+            if (base_url.endsWith('.html')) {
+                base_url = base_url.substring(0, base_url.lastIndexOf('/') + 1)
+            }
+            var products_url = base_url + "builds/products.json"
+            console.log("Loading products from: " + products_url)
+            var raw = new XMLHttpRequest();
+            raw.open("GET", products_url, true);
+            raw.responseType = "text"
+            raw.onreadystatechange = function () {
+                if (this.readyState === 4 && this.status === 200) {
+                    var obj = JSON.parse(this.response);
+                    self.products = obj.products;
+                    console.log("Loaded " + self.products.length + " products");
+
+                    // Preload first product's firmware automatically
+                    if (self.products.length > 0) {
+                        self.productSelected(self.products[0]);
+                    }
+                }
+            }
+            raw.send(null)
+        },
+        productSelected(product) {
+            var self = this
+            self.selectedProduct = product
+            self.firmwareFileName = product.name + " v" + product.firmware.version
+            console.log("Selected product: " + product.name + " v" + product.firmware.version)
+
+            // Load firmware binary
+            readServerFirmwareFile(product.firmware.url, false).then(buffer => {
+                blinkFirmwareFile = buffer
+                console.log("Firmware loaded: " + product.firmware.filename)
+            })
+        },
         importExamples() {
             // var self = this
             // const unique_platforms = [...new Set(data.map(obj => obj.platform))]
@@ -415,43 +478,44 @@ var app = new Vue({
             }
             reader.readAsArrayBuffer(newfile);
         },
-        examples(){
-            var self = this
+        // LEGACY: Commented out - now using products system instead
+        // examples(){
+        //     var self = this
 
-            //grab the blink firmware file
-            var blink_example = self.examples.filter(example => example.name.toLowerCase() === "blink" && example.platform === "seed")[0]
+        //     //grab the blink firmware file
+        //     var blink_example = self.examples.filter(example => example.name.toLowerCase() === "blink" && example.platform === "seed")[0]
 
-            // Read new file
-            self.firmwareFileName = blink_example.name
-            var srcurl = blink_example.source.repo_url
-            //var expath = srcurl.concat(blink_example.filepath)
-            var expath = "https://ec2.puremagnetik.com/firmware_update/NightPassage_1_0_7.bin"
-        	readServerFirmwareFile(expath, false).then(buffer => {
-                blinkFirmwareFile = buffer
-            })
+        //     // Read new file
+        //     self.firmwareFileName = blink_example.name
+        //     var srcurl = blink_example.source.repo_url
+        //     //var expath = srcurl.concat(blink_example.filepath)
+        //     var expath = "https://ec2.puremagnetik.com/firmware_update/NightPassage_1_0_7.bin"
+        // 	readServerFirmwareFile(expath, false).then(buffer => {
+        //         blinkFirmwareFile = buffer
+        //     })
 
-            // grab the bootloader firmware file
-            var srcurl = blink_example.source.bootloader_url
-        	readServerFirmwareFile(srcurl, false).then(buffer => {
-                bootloaderFirmwareFile = buffer
-            })
+        //     // grab the bootloader firmware file
+        //     var srcurl = blink_example.source.bootloader_url
+        // 	readServerFirmwareFile(srcurl, false).then(buffer => {
+        //         bootloaderFirmwareFile = buffer
+        //     })
 
-            //parse the query strings
-            var searchParams = new URLSearchParams(getRootUrl().split("?")[1])
+        //     //parse the query strings
+        //     var searchParams = new URLSearchParams(getRootUrl().split("?")[1])
 
-            var platform = searchParams.get('platform')
-            var name = searchParams.get('name')
-            if(platform != null && self.examples.filter(ex => ex.platform === platform)){
-                self.sel_platform = platform
+        //     var platform = searchParams.get('platform')
+        //     var name = searchParams.get('name')
+        //     if(platform != null && self.examples.filter(ex => ex.platform === platform)){
+        //         self.sel_platform = platform
 
-                if(name != null){
-                    var ex = self.examples.filter(ex => ex.name === name && ex.platform === platform)[0]
-                    if(ex != null){
-                        self.sel_example = ex
-                        this.programChanged()
-                    }
-                }
-            }
-        }
+        //         if(name != null){
+        //             var ex = self.examples.filter(ex => ex.name === name && ex.platform === platform)[0]
+        //             if(ex != null){
+        //                 self.sel_example = ex
+        //                 this.programChanged()
+        //             }
+        //         }
+        //     }
+        // }
     }
 })

@@ -1,0 +1,64 @@
+{
+  "version": "1.0",
+  "updated": "2026-02-05",
+  "products": [
+    {
+      "id": "jots",
+      "name": "JOTS",
+      "description": "Idea Regenerator",
+      "manufacturer": "Puremagnetik",
+      "image": "builds/jots/jots_flat.jpg",
+      "platform": "seed",
+      "firmware": {
+        "version": "1.0.1",
+        "release_date": "2026-02-05",
+        "filename": "jots_1_0_1.bin",
+        "url": "builds/jots/jots_1_0_1.bin",
+        "size_bytes": null,
+        "checksum_sha256": null
+      },
+      "changelog": [
+        {
+          "version": "1.0.1",
+          "date": "2026-02-05",
+          "changes": [
+            "Latest stable release"
+          ]
+        }
+      ],
+      "changelog_url": "builds/jots/CHANGELOG.md",
+      "installation_notes": "Hold Footswitch  while connecting USB cable to enter DFU bootloader mode. The red LED on the Daisy Seed board should light up.",
+      "support_url": "https://puremagnetik.com/pages/puremagnetik-help-faqs",
+      "documentation_url": "https://puremagnetik.com/jots"
+    },
+    {
+      "id": "laps",
+      "name": "LAPS",
+      "description": "Multitrack Collage Machine",
+      "manufacturer": "Puremagnetik",
+      "image": "builds/laps/laps_flat.jpg",
+      "platform": "seed",
+      "firmware": {
+        "version": "1.0.7",
+        "release_date": "2026-01-14",
+        "filename": "laps_1_0_7.bin",
+        "url": "builds/laps/laps_1_0_7.bin",
+        "size_bytes": null,
+        "checksum_sha256": null
+      },
+      "changelog": [
+        {
+          "version": "1.0.7",
+          "date": "2026-01-14",
+          "changes": [
+            "Latest stable release"
+          ]
+        }
+      ],
+      "changelog_url": "builds/laps/CHANGELOG.md",
+      "installation_notes": "Hold SHIFT button while connecting USB cable to enter DFU bootloader mode. The red LED on the Daisy Seed board should light up.",
+      "support_url": "https://puremagnetik.com/pages/puremagnetik-help-faqs",
+      "documentation_url": "https://puremagnetik.com/laps"
+    }
+  ]
+}
