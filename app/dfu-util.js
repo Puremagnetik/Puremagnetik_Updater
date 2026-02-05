@@ -681,6 +681,15 @@ var device = null;
                 let configForm = document.querySelector("#configForm");
                 let downloadLog = document.querySelector("#downloadLog");
 
+                // Scroll to Programming Status section
+                const programmingStatusSection = downloadLog.closest('.app_column');
+                if (programmingStatusSection) {
+                    programmingStatusSection.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+
                 if (!configForm.checkValidity()) {
                     configForm.reportValidity();
                     return false;
