@@ -510,7 +510,6 @@ var device = null;
             // Check if the clicked element is the connect button
             if (e.target && e.target.id === 'connect') {
                 let connectButton = e.target;
-                let statusDisplay = document.querySelector("#status");
 
                 if (device) {
                     device.close().then(onDisconnect);
