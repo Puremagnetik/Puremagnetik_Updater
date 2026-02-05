@@ -205,39 +205,38 @@ var app = new Vue({
                 <!--<b-button variant="es" v-b-toggle.collapseHelp>Display Help</b-button> -->
                 <b-collapse id="collapseHelp" style="display:block;" class="collapse show">
                     <div class="nested_list">
-                        <br><div class="warning-box">
-                            <h3>⚠️ Important Warnings</h3>
+                        <br><div v-if="selectedProduct && selectedProduct.instructions && selectedProduct.instructions.info_section" class="warning-box">
+                            <h3>{{selectedProduct.instructions.info_section.title}}</h3>
                             <ul>
-                                <li><strong>Warranty Notice:</strong> User-performed firmware updates may invalidate your warranty if the MCU (microcontroller) is damaged during the update process.</li>
-                                <li><strong>Static Discharge:</strong> Before touching the MCU or internal components, discharge any static electricity by touching a grounded metal object (such as a metal water faucet or the metal part of a power outlet cover plate).</li>
-                                <li><strong>Professional Service Available:</strong> If you prefer not to perform the update yourself, you can send your device back to us for a free repair/update service (you pay postage only). Contact us at <a href="mailto:hello@puremagnetik.com">hello@puremagnetik.com</a> for details.</li>
+                                <li v-for="item in selectedProduct.instructions.info_section.items" :key="item" v-html="item"></li>
                             </ul>
                         </div>
+                        <div v-else-if="!selectedProduct" class="warning-box">
+                            <h3>Important Info</h3>
+                            <p style="text-align: center; color: #64748b;">Please select a product above to view specific instructions.</p>
+                        </div>
                         <h3>Usage:</h3>
-                        <ol>
-                            <li><p>Use the Chrome browser for this page.</p></li>
-                            <li><p>Do not use a USB hub.</p></li>
-                            <li><p>Keep the pedal <i>disconnected</i> from a power source throughout the update.</p></li>
-                            <li><p><strong>Discharge static electricity</strong> by touching a grounded metal object before proceeding.</p></li>
-                            <li><p>Remove the 4 screws and the bottom plate of the pedal.</p></li>
-                            <li><p>Inside the pedal, locate the micro USB port.
-
-                            <p><img height="477px" width="365px" src="https://cdn.shopify.com/s/files/1/1561/5265/files/IMG_7651.jpg?v=1743518332"></p><br>
-                            <li v-if="selectedProduct"><p>{{selectedProduct.installation_notes}}</p></li>
-                            <li v-else><p>On the pedal, hold the appropriate button down while plugging the USB cable into the port.
-                            <br>The red LED on the yellow board will light!
-                            <br>If the blue LED on the pedal lights up, reconnect again with the button held. The blue LED should not light up.</p></li>
-                            <li><p>Next, hit "Connect" and choose "DFU" device.
-                            <br><br><b-button variant="es" id="connect">Connect</b-button></p></li>
-                            <li><p>Hit "Flash Update" and wait for the progress bar to finish.
-                            <br><br><b-button variant="es" id="blink" :disabled="no_device">Flash Update!</b-button>
-                            <br><small v-if="selectedProduct" style="color: #64748b; font-weight: 500; margin-top: 8px; display: inline-block;">Version: {{selectedProduct.name}} v{{selectedProduct.firmware.version}} ({{selectedProduct.firmware.release_date}})</small></p></li>
+                        <ol v-if="selectedProduct && selectedProduct.instructions && selectedProduct.instructions.steps">
+                            <li v-for="(step, index) in selectedProduct.instructions.steps" :key="index">
+                                <p v-html="step.text"></p>
+                                <b-button v-if="step.type === 'connect_button'" variant="es" id="connect">Connect</b-button>
+                                <div v-if="step.type === 'flash_button'">
+                                    <b-button variant="es" id="blink" :disabled="no_device">Flash Update!</b-button>
+                                    <br><small style="color: #64748b; font-weight: 500; margin-top: 8px; display: inline-block;">Version: {{selectedProduct.name}} v{{selectedProduct.firmware.version}} ({{selectedProduct.firmware.release_date}})</small>
+                                </div>
+                                <p v-if="step.image">
+                                    <img
+                                        :src="step.image.url"
+                                        :width="step.image.width"
+                                        :height="step.image.height"
+                                    >
+                                </p>
+                            </li>
                         </ol>
-                        <p>
-                            On windows, you may have to update the driver to WinUSB.
-
-                            To do this, you can download the free software, Zadig. Instructions for this can be found <a href="https://github.com/electro-smith/DaisyWiki/wiki/Using-Zadig-to-Reset-USB-Driver-(Windows-Only)">here.</a>
-                        </p>
+                        <ol v-else>
+                            <li><p>Please select a product above to view instructions.</p></li>
+                        </ol>
+                        <p v-if="selectedProduct && selectedProduct.instructions && selectedProduct.instructions.footer_note" v-html="selectedProduct.instructions.footer_note"></p>
                     </div>
                 </b-collapse>
                 <b-collapse id="collapseHelp">

@@ -27,9 +27,34 @@
         }
       ],
       "changelog_url": "builds/jots/CHANGELOG.md",
-      "installation_notes": "Hold Footswitch  while connecting USB cable to enter DFU bootloader mode. The red LED on the Daisy Seed board should light up.",
+      "installation_notes": "Hold Footswitch while connecting a micro USB cable to enter firmware loading mode",
       "support_url": "https://puremagnetik.com/pages/puremagnetik-help-faqs",
-      "documentation_url": "https://puremagnetik.com/jots"
+      "documentation_url": "https://puremagnetik.com/jots",
+      "instructions": {
+        "steps": [
+          {
+            "text": "Use the Chrome browser for this page."
+          },
+          {
+            "text": "Do not use a USB hub."
+          },
+          {
+            "text": "Keep the device <i>disconnected</i> from a power source throughout the update."
+          },
+          {
+            "text": "Hold Footswitch while connecting a micro USB cable to enter firmware loading mode"
+          },
+          {
+            "type": "connect_button",
+            "text": "Next, hit \"Connect\" and choose \"DFU\" device."
+          },
+          {
+            "type": "flash_button",
+            "text": "Hit \"Flash Update\" and wait for the progress bar to finish."
+          }
+        ],
+        "footer_note": "On windows, you may have to update the driver to WinUSB. To do this, you can download the free software, Zadig. Instructions for this can be found <a href=\"https://github.com/electro-smith/DaisyWiki/wiki/Using-Zadig-to-Reset-USB-Driver-(Windows-Only)\">here.</a>"
+      }
     },
     {
       "id": "laps",
@@ -58,7 +83,54 @@
       "changelog_url": "builds/laps/CHANGELOG.md",
       "installation_notes": "Hold SHIFT button while connecting USB cable to enter DFU bootloader mode. The red LED on the Daisy Seed board should light up.",
       "support_url": "https://puremagnetik.com/pages/puremagnetik-help-faqs",
-      "documentation_url": "https://puremagnetik.com/laps"
+      "documentation_url": "https://puremagnetik.com/laps",
+      "instructions": {
+        "info_section": {
+          "title": "⚠️ Important Warnings",
+          "items": [
+            "<strong>Warranty Notice:</strong> User-performed firmware updates may invalidate your warranty if the MCU (microcontroller) is damaged during the update process.",
+            "<strong>Static Discharge:</strong> Before touching the MCU or internal components, discharge any static electricity by touching a grounded metal object (such as a metal water faucet or the metal part of a power outlet cover plate).",
+            "<strong>Professional Service Available:</strong> If you prefer not to perform the update yourself, you can send your device back to us for a free repair/update service (you pay postage only). Contact us at <a href=\"mailto:hello@puremagnetik.com\">hello@puremagnetik.com</a> for details."
+          ]
+        },
+        "steps": [
+          {
+            "text": "Use the Chrome browser for this page."
+          },
+          {
+            "text": "Do not use a USB hub."
+          },
+          {
+            "text": "Keep the device <i>disconnected</i> from a power source throughout the update."
+          },
+          {
+            "text": "<strong>Discharge static electricity</strong> by touching a grounded metal object before proceeding."
+          },
+          {
+            "text": "Remove the 4 screws and the bottom plate of the pedal."
+          },
+          {
+            "text": "Inside the pedal, locate the micro USB port.",
+            "image": {
+              "url": "https://cdn.shopify.com/s/files/1/1561/5265/files/IMG_7651.jpg?v=1743518332",
+              "width": "365px",
+              "height": "477px"
+            }
+          },
+          {
+            "text": "Hold SHIFT button while connecting USB cable to enter DFU bootloader mode. The red LED on the Daisy Seed board should light up."
+          },
+          {
+            "type": "connect_button",
+            "text": "Next, hit \"Connect\" and choose \"DFU\" device."
+          },
+          {
+            "type": "flash_button",
+            "text": "Hit \"Flash Update\" and wait for the progress bar to finish."
+          }
+        ],
+        "footer_note": "On windows, you may have to update the driver to WinUSB. To do this, you can download the free software, Zadig. Instructions for this can be found <a href=\"https://github.com/electro-smith/DaisyWiki/wiki/Using-Zadig-to-Reset-USB-Driver-(Windows-Only)\">here.</a>"
+      }
     }
   ]
 }
