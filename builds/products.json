@@ -44,7 +44,7 @@
             "text": "Keep the device <i>disconnected</i> from a power source throughout the update."
           },
           {
-            "text": "Hold Footswitch while connecting a micro USB cable to enter firmware loading mode. The LED will remain unlit until the firmware update has completed"
+            "text": "To enter firmware loading mode, hold the footswitch and connect a micro-USB cable. The LED will remain unlit until the firmware update is complete."
           },
           
           {
