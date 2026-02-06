@@ -10,14 +10,22 @@
       "image": "builds/jots/jots_flat.jpg",
       "platform": "seed",
       "firmware": {
-        "version": "1.0.12",
+        "version": "1.0.13",
         "release_date": "2026-02-05",
-        "filename": "jots_1_0_1.bin",
-        "url": "builds/jots/jots_1_0_12.bin",
+        "filename": "jots_1_0_13.bin",
+        "url": "builds/jots/jots_1_0_13.bin",
         "size_bytes": null,
         "checksum_sha256": null
       },
       "changelog": [
+        {
+          "version": "1.0.13",
+          "date": "2026-02-06",
+          "changes": [
+            "Latest Release Candidate",
+            "BPF enters no modulation mode if at zero on GEN"
+          ]
+        }, 
         {
           "version": "1.0.12",
           "date": "2026-02-05",
