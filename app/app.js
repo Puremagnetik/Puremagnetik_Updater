@@ -340,7 +340,7 @@ var app = new Vue({
             // Load firmware binary
             readServerFirmwareFile(product.firmware.url, false).then(buffer => {
                 blinkFirmwareFile = buffer
-                console.log("Firmware loaded: " + product.firmware.filename)
+                console.log("Firmware loaded: " + product.firmware.url.split('/').pop())
             })
         },
         programChanged(){

@@ -1,23 +1,23 @@
 {
-  "version": "1.0",
-  "updated": "2026-02-05",
   "products": [
     {
       "id": "jots",
       "name": "JOTS",
       "description": "Idea Regenerator",
-      "manufacturer": "Puremagnetik",
       "image": "builds/jots/jots_flat.jpg",
-      "platform": "seed",
       "firmware": {
-        "version": "1.0.13",
+        "version": "1.0.14",
         "release_date": "2026-02-05",
-        "filename": "jots_1_0_13.bin",
-        "url": "builds/jots/jots_1_0_13.bin",
-        "size_bytes": null,
-        "checksum_sha256": null
+        "url": "builds/jots/jots_1_0_14.bin"
       },
       "changelog": [
+        {
+          "version": "1.0.14",
+          "date": "2026-02-06",
+          "changes": [
+            "Fixed persistency on filter change in GEN mode"
+          ]
+        },
         {
           "version": "1.0.13",
           "date": "2026-02-06",
@@ -25,7 +25,7 @@
             "Latest Release Candidate",
             "BPF enters no modulation mode if at zero on GEN"
           ]
-        }, 
+        },
         {
           "version": "1.0.12",
           "date": "2026-02-05",
@@ -36,10 +36,6 @@
           ]
         }
       ],
-      "changelog_url": "builds/jots/CHANGELOG.md",
-      "installation_notes": "Hold Footswitch while connecting a micro USB cable to enter firmware loading mode",
-      "support_url": "https://puremagnetik.com/pages/puremagnetik-help-faqs",
-      "documentation_url": "https://puremagnetik.com/jots",
       "instructions": {
         "steps": [
           {
@@ -54,7 +50,7 @@
           {
             "text": "To enter firmware loading mode, hold the footswitch and connect a micro-USB cable. The LED will remain unlit until the firmware update is complete."
           },
-          
+
           {
             "type": "connect_button",
             "text": "Next, hit \"Connect\" and choose \"DFU\" device."
@@ -71,16 +67,11 @@
       "id": "laps",
       "name": "LAPS",
       "description": "Multitrack Collage Machine",
-      "manufacturer": "Puremagnetik",
       "image": "builds/laps/laps_flat.jpg",
-      "platform": "seed",
       "firmware": {
         "version": "1.0.7",
         "release_date": "2026-01-14",
-        "filename": "laps_1_0_7.bin",
-        "url": "builds/laps/laps_1_0_7.bin",
-        "size_bytes": null,
-        "checksum_sha256": null
+        "url": "builds/laps/laps_1_0_7.bin"
       },
       "changelog": [
         {
@@ -91,10 +82,6 @@
           ]
         }
       ],
-      "changelog_url": "builds/laps/CHANGELOG.md",
-      "installation_notes": "Hold SHIFT button while connecting USB cable to enter DFU bootloader mode. The red LED on the Daisy Seed board should light up.",
-      "support_url": "https://puremagnetik.com/pages/puremagnetik-help-faqs",
-      "documentation_url": "https://puremagnetik.com/laps",
       "instructions": {
         "info_section": {
           "title": "⚠️ Important Warnings",
