@@ -6,11 +6,18 @@
       "description": "Idea Regenerator",
       "image": "builds/jots/jots_flat.jpg",
       "firmware": {
-        "version": "1.0.14",
-        "release_date": "2026-02-05",
-        "url": "builds/jots/jots_1_0_14.bin"
+        "version": "1.0.15",
+        "release_date": "2026-03-03",
+        "url": "builds/jots/jots_1_0_15.bin"
       },
       "changelog": [
+        {
+          "version": "1.0.15",
+          "date": "2026-03-03",
+          "changes": [
+            "Fixes Reverse persistency on Track change"
+          ]
+        },
         {
           "version": "1.0.14",
           "date": "2026-02-06",
