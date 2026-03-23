@@ -23,7 +23,8 @@ var data = {
     platforms: [],
     examples: [],
     sel_platform: null,
-    sel_example: null
+    sel_example: null,
+    showPreviousUpdates: false
 }
 
 // Global Buffer for reading files
@@ -144,9 +145,6 @@ var app = new Vue({
                             <h3 class="product-name">{{product.name}}</h3>
                             <p class="product-description">{{product.description}}</p>
                             <p class="product-version">v{{product.firmware.version}}</p>
-                            <div v-if="product.changelog && product.changelog.length > 0" class="product-changelog-preview">
-                                <small style="color: #64748b;">Latest: {{product.changelog[0].changes[0]}}</small>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -162,6 +160,19 @@ var app = new Vue({
                                 <li v-for="change in selectedProduct.changelog[0].changes" :key="change" v-html="change"></li>
                             </ul>
                             <small style="color: #64748b;">Released: {{selectedProduct.changelog[0].date}}</small>
+                            <div v-if="selectedProduct.changelog.length > 1" class="previous-updates">
+                                <a href="#" @click.prevent="showPreviousUpdates = !showPreviousUpdates" class="previous-updates-toggle">
+                                    {{ showPreviousUpdates ? 'Hide' : 'Show' }} Previous Updates
+                                </a>
+                                <div v-if="showPreviousUpdates" class="previous-updates-list">
+                                    <div v-for="entry in selectedProduct.changelog.slice(1)" :key="entry.version" class="previous-update-entry">
+                                        <strong>v{{entry.version}}</strong> <small style="color: #64748b;">— {{entry.date}}</small>
+                                        <ul>
+                                            <li v-for="change in entry.changes" :key="change" v-html="change"></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <br><div v-if="selectedProduct && selectedProduct.instructions && selectedProduct.instructions.info_section" class="warning-box">
                             <h3>{{selectedProduct.instructions.info_section.title}}</h3>
@@ -334,6 +345,7 @@ var app = new Vue({
         productSelected(product) {
             var self = this
             self.selectedProduct = product
+            self.showPreviousUpdates = false
             self.firmwareFileName = product.name + " v" + product.firmware.version
             console.log("Selected product: " + product.name + " v" + product.firmware.version)
 

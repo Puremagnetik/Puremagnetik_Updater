@@ -191,6 +191,39 @@ a:hover {
     margin-top: 8px;
 }
 
+/* === PREVIOUS UPDATES === */
+.previous-updates {
+    margin-top: 16px;
+    padding-top: 12px;
+    border-top: 1px solid #c7dff7;
+}
+
+.previous-updates-toggle {
+    font-size: 0.85rem;
+    color: var(--accent);
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.previous-updates-toggle:hover {
+    text-decoration: underline;
+}
+
+.previous-updates-list {
+    margin-top: 12px;
+}
+
+.previous-update-entry {
+    padding: 8px 0;
+    font-size: 0.9rem;
+    color: var(--text-primary);
+}
+
+.previous-update-entry ul {
+    margin: 4px 0 0 20px;
+    color: #64748b;
+}
+
 /* === WARNING BOX === */
 .warning-box {
     background: #fffbf0;
