@@ -83,11 +83,18 @@
       "description": "Multitrack Collage Machine",
       "image": "builds/laps/laps_flat.jpg",
       "firmware": {
-        "version": "1.0.7",
-        "release_date": "2026-01-14",
-        "url": "builds/laps/laps_1_0_7.bin"
+        "version": "1.0.8",
+        "release_date": "2026-03-23",
+        "url": "builds/laps/laps_1_0_8.bin"
       },
       "changelog": [
+         {
+          "version": "1.0.8",
+          "date": "2026-03-23",
+          "changes": [
+            "Optimized SHIFT threshold to prevent false triggering. Overhauled granular effect."
+          ]
+        },
         {
           "version": "1.0.7",
           "date": "2026-01-14",
