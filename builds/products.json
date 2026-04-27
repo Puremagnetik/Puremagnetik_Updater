@@ -1,6 +1,57 @@
 {
   "products": [
     {
+      "id": "etches",
+      "name": "ETCHES",
+      "description": "Soundscape Palette",
+      "image": "builds/etches/etches_whitebg.jpg",
+      "firmware": {
+        "version": "1.0.11",
+        "release_date": "2026-04-27",
+        "url": "builds/etches/etches_1_0_11.bin"
+      },
+      "changelog": [
+        {
+          "version": "1.0.11",
+          "date": "2026-03-04",
+          "changes": [
+            "• Added SINE Wave
+              • Fixed Reverb Gain staging. Made it a send to 100% wet reverb mix instead of straight Dry/Wet
+              • Smoothed verb blend knob
+              • Fixed release “blip” when Swell pad reached 0 
+              • Increased Stac envelope cycle rate to *almost* audio rate - sounds weird at audio rate
+              "
+          ]
+        }
+      ],
+      "instructions": {
+        "steps": [
+          {
+            "text": "Use the Chrome browser for this page."
+          },
+          {
+            "text": "Do not use a USB hub."
+          },
+          {
+            "text": "Keep the device <i>disconnected</i> from a power source throughout the update."
+          },
+          {
+            "text": "To enter firmware loading mode, hold the SHIFT and connect a micro-USB cable. The LEDs will remain unlit until the firmware update is complete."
+          },
+
+          {
+            "type": "connect_button",
+            "text": "Next, hit \"Connect\" and choose \"DFU\" device."
+          },
+          {
+            "type": "flash_button",
+            "text": "Hit \"Flash Update\" and wait for the progress bar to finish."
+          }
+        ],
+        "footer_note": "On windows, you may have to update the driver to WinUSB. To do this, you can download the free software, Zadig. Instructions for this can be found <a href=\"https://github.com/electro-smith/DaisyWiki/wiki/Using-Zadig-to-Reset-USB-Driver-(Windows-Only)\">here.</a>"
+      }
+    },
+    {
       "id": "jots",
       "name": "JOTS",
       "description": "Idea Regenerator",
