@@ -6,11 +6,18 @@
       "description": "Soundscape Palette",
       "image": "builds/etches/etches_whitebg.jpg",
       "firmware": {
-        "version": "1.0.11",
-        "release_date": "2026-04-27",
-        "url": "builds/etches/etches_1_0_11.bin"
+        "version": "1.0.112",
+        "release_date": "2026-04-29",
+        "url": "builds/etches/etches_1_0_112.bin"
       },
       "changelog": [
+        {
+          "version": "1.0.112",
+          "date": "2026-04-29",
+          "changes": [
+            "Added soft takeover to Swell pad instead of binary switch"
+          ]
+        },
         {
           "version": "1.0.11",
           "date": "2026-04-27",
