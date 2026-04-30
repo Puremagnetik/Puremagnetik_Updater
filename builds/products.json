@@ -6,11 +6,19 @@
       "description": "Soundscape Palette",
       "image": "builds/etches/etches_whitebg.jpg",
       "firmware": {
-        "version": "1.0.112",
-        "release_date": "2026-04-29",
-        "url": "builds/etches/etches_1_0_112.bin"
+        "version": "1.0.113",
+        "release_date": "2026-04-30",
+        "url": "builds/etches/etches_1_0_113.bin"
       },
       "changelog": [
+        {
+          "version": "1.0.113",
+          "date": "2026-04-30",
+          "changes": [
+            "Smoothed recorder overdub transitions",
+            "Fixed recorder Blend gain staging"
+          ]
+        },
         {
           "version": "1.0.112",
           "date": "2026-04-29",
