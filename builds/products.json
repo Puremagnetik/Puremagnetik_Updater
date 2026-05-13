@@ -6,11 +6,21 @@
       "description": "Soundscape Palette",
       "image": "builds/etches/etches_whitebg.jpg",
       "firmware": {
-        "version": "1.0.113",
-        "release_date": "2026-04-30",
-        "url": "builds/etches/etches_1_0_113.bin"
+        "version": "1.0.114",
+        "release_date": "2026-05-13",
+        "url": "builds/etches/etches_1_0_114.bin"
       },
       "changelog": [
+        {
+          "version": "1.0.114",
+          "date": "2026-05-13",
+          "changes": [
+            "• Fix zipper noise on Edge, Delay Mix & Reverb Mix",
+            "• Volume compensate Edge as harmonics increase",
+            "• Reduce random min rate for Invert — make it more gentle modulation",
+            "• Increased delay smoothing"
+          ]
+        },
         {
           "version": "1.0.113",
           "date": "2026-04-30",
