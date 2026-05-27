@@ -6,11 +6,19 @@
       "description": "Soundscape Palette",
       "image": "builds/etches/etches_whitebg.jpg",
       "firmware": {
-        "version": "1.0.114",
-        "release_date": "2026-05-13",
-        "url": "builds/etches/etches_1_0_114.bin"
+        "version": "1.0.12",
+        "release_date": "2026-05-27",
+        "url": "builds/etches/etches_1_0_12.bin"
       },
       "changelog": [
+        {
+          "version": "1.0.12",
+          "date": "2026-05-27",
+          "changes": [
+            "- SHIFT+REC tap now works during recording",
+            "- SHIFT+hold REC (2s): full reset"
+          ]
+        },
         {
           "version": "1.0.114",
           "date": "2026-05-13",
