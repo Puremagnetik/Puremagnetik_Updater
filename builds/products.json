@@ -15,8 +15,8 @@
           "version": "1.0.12",
           "date": "2026-05-27",
           "changes": [
-            "- SHIFT+REC tap now works during recording",
-            "- SHIFT+hold REC (2s): full reset"
+            "SHIFT+REC tap now works during recording",
+            "SHIFT+hold REC (2s): full reset"
           ]
         },
         {
@@ -68,7 +68,7 @@
             "text": "Keep the device <i>disconnected</i> from a power source throughout the update."
           },
           {
-            "text": "To enter firmware loading mode, hold the SHIFT and connect a micro-USB cable. The LEDs will remain unlit until the firmware update is complete."
+            "text": "To enter firmware loading mode, hold the SHIFT and connect a micro-USB cable. The LEDs will remain unlit. Continue to the next step."
           },
 
           {
@@ -145,7 +145,7 @@
             "text": "Keep the device <i>disconnected</i> from a power source throughout the update."
           },
           {
-            "text": "To enter firmware loading mode, hold the footswitch and connect a micro-USB cable. The LED will remain unlit until the firmware update is complete."
+            "text": "To enter firmware loading mode, hold the footswitch and connect a micro-USB cable. The LEDs will remain unlit. Continue to the next step."
           },
 
           {
