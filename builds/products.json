@@ -6,13 +6,13 @@
       "description": "Soundscape Palette",
       "image": "builds/etches/etches_whitebg.jpg",
       "firmware": {
-        "version": "1.0.13",
+        "version": "1.0.14",
         "release_date": "2026-05-28",
-        "url": "builds/etches/etches_1_0_13.bin"
+        "url": "builds/etches/etches_1_0_14.bin"
       },
       "changelog": [
          {
-          "version": "1.0.13",
+          "version": "1.0.14",
           "date": "2026-05-28",
           "changes": [
             "Auto-calibrate on startup",
