@@ -6,12 +6,22 @@
       "description": "Soundscape Palette",
       "image": "builds/etches/etches_whitebg.jpg",
       "firmware": {
-        "version": "1.0.14",
-        "release_date": "2026-05-28",
-        "url": "builds/etches/etches_1_0_14.bin"
+        "version": "1.0.15",
+        "release_date": "2026-05-29",
+        "url": "builds/etches/etches_1_0_15.bin"
       },
       "changelog": [
-         {
+        {
+          "version": "1.0.15",
+          "date": "2026-05-29",
+          "changes": [
+            "Fixed LED flickering; LED color now uses raw pressure",
+            "Per-pad capacitive touch baseline calibration",
+            "Fixed mux mapping and pad 15 note assignment",
+            "Added minimum gap to SHIFT double-click to reject jitter"
+          ]
+        },
+        {
           "version": "1.0.14",
           "date": "2026-05-28",
           "changes": [
