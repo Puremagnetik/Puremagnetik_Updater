@@ -6,11 +6,20 @@
       "description": "Soundscape Palette",
       "image": "builds/etches/etches_whitebg.jpg",
       "firmware": {
-        "version": "1.0.15",
+        "version": "1.0.16",
         "release_date": "2026-05-29",
-        "url": "builds/etches/etches_1_0_15.bin"
+        "url": "builds/etches/etches_1_0_16.bin"
       },
       "changelog": [
+        {
+          "version": "1.0.16",
+          "date": "2026-05-29",
+          "changes": [
+            "Restored swell pad sensitivity and dynamic range",
+            "Fixed note changing when lifting finger from pad",
+            "Improved touch pad threshold calibration"
+          ]
+        },
         {
           "version": "1.0.15",
           "date": "2026-05-29",
