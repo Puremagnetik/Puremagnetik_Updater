@@ -6,11 +6,19 @@
       "description": "Soundscape Palette",
       "image": "builds/etches/etches_whitebg.jpg",
       "firmware": {
-        "version": "1.0.16",
-        "release_date": "2026-05-29",
-        "url": "builds/etches/etches_1_0_16.bin"
+        "version": "1.0.17",
+        "release_date": "2026-06-9",
+        "url": "builds/etches/etches_1_0_17.bin"
       },
       "changelog": [
+         {
+          "version": "1.0.17",
+          "date": "2026-06-9",
+          "changes": [
+            "Improved calibration on higher notes",
+            "Shift + Short press on REC: Delete active splice"
+          ]
+        },
         {
           "version": "1.0.16",
           "date": "2026-05-29",
