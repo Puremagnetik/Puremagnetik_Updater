@@ -201,11 +201,18 @@
       "description": "Multitrack Collage Machine",
       "image": "builds/laps/laps_flat.jpg",
       "firmware": {
-        "version": "1.0.8",
-        "release_date": "2026-03-23",
-        "url": "builds/laps/laps_1_0_8.bin"
+        "version": "1.0.9",
+        "release_date": "2026-06-10",
+        "url": "builds/laps/laps_1_0_9.bin"
       },
       "changelog": [
+        {
+          "version": "1.0.9",
+          "date": "2026-06-10",
+          "changes": [
+            "Fixed issue with grain overlap settings."
+          ]
+        },
          {
           "version": "1.0.8",
           "date": "2026-03-23",
