@@ -6,7 +6,7 @@
       "description": "Soundscape Palette",
       "image": "builds/etches/etches_whitebg.jpg",
       "firmware": {
-        "version": "1.0.17",
+        "version": "1.0.18",
         "release_date": "2026-06-25",
         "url": "builds/etches/etches_1_0_18.bin"
       },
