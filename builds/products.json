@@ -7,13 +7,23 @@
       "image": "builds/etches/etches_whitebg.jpg",
       "firmware": {
         "version": "1.0.17",
-        "release_date": "2026-06-9",
-        "url": "builds/etches/etches_1_0_17.bin"
+        "release_date": "2026-06-25",
+        "url": "builds/etches/etches_1_0_18.bin"
       },
       "changelog": [
+        {
+          "version": "1.0.18",
+          "date": "2026-06-25",
+          "commit": "310d63dd"
+          "changes": [
+            "Adjusted capactive touch baseline calibration",
+            "Fix NP2 mux bleed stealing NP1 notes at high FLUX/ORBIT values"
+          ]
+        },
          {
           "version": "1.0.17",
           "date": "2026-06-9",
+          "commit": "c4d917"
           "changes": [
             "Improved calibration on higher notes",
             "Shift and Short press on REC: Delete active splice"
