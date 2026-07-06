@@ -129,7 +129,7 @@
       }
     },
     {
-      "id": "laps",
+      "id": "laps_umbra",
       "name": "LAPS (Umbra Edition)",
       "description": "Multitrack Collage Machine",
       "image": "builds/laps/Umbra_flat.jpg",
