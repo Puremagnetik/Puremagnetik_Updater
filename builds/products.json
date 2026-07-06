@@ -129,6 +129,73 @@
       }
     },
     {
+      "id": "laps",
+      "name": "LAPS (Umbra Edition)",
+      "description": "Multitrack Collage Machine",
+      "image": "builds/laps/Umbra_flat.jpg",
+      "firmware": {
+        "version": "1.1.01",
+        "release_date": "2026-07-6",
+        "url": "builds/laps/laps_1_1_01.bin"
+      },
+      "changelog": [
+        {
+          "version": "1.1.01",
+          "date": "2026-06-10",
+          "changes": [
+            "Recalibration of Umbra knob scalings"
+          ]
+        },
+        {
+          "version": "1.0.9",
+          "date": "2026-06-10",
+          "changes": [
+            "Fixed issue with grain overlap settings."
+          ]
+        },
+         {
+          "version": "1.0.8",
+          "date": "2026-03-23",
+          "changes": [
+            "Optimized SHIFT threshold to prevent false triggering. Overhauled granular effect."
+          ]
+        },
+        {
+          "version": "1.0.7",
+          "date": "2026-01-14",
+          "changes": [
+            "Updated gain staging in Multiply mode"
+          ]
+        }
+      ],
+      "instructions": {
+        "steps": [
+          {
+            "text": "Use the Chrome browser for this page."
+          },
+          {
+            "text": "Do not use a USB hub."
+          },
+          {
+            "text": "Keep the device <i>disconnected</i> from a power source throughout the update."
+          },
+          {
+            "text": "To enter firmware loading mode, hold SHIFT while connecting a micro-USB cable. Continue to the next step."
+          },
+
+          {
+            "type": "connect_button",
+            "text": "Next, hit \"Connect\" and choose \"DFU\" device."
+          },
+          {
+            "type": "flash_button",
+            "text": "Hit \"Flash Update\" and wait for the progress bar to finish."
+          }
+        ],
+        "footer_note": "On windows, you may have to update the driver to WinUSB. To do this, you can download the free software, Zadig. Instructions for this can be found <a href=\"https://github.com/electro-smith/DaisyWiki/wiki/Using-Zadig-to-Reset-USB-Driver-(Windows-Only)\">here.</a>"
+      }
+    },
+    {
       "id": "jots",
       "name": "JOTS",
       "description": "Idea Regenerator",
@@ -207,7 +274,7 @@
     },
     {
       "id": "laps",
-      "name": "LAPS",
+      "name": "LAPS (Silver Edition)",
       "description": "Multitrack Collage Machine",
       "image": "builds/laps/laps_flat.jpg",
       "firmware": {
